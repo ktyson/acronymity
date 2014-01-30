@@ -1,0 +1,77 @@
+<html>
+<head>
+
+<script src="/sites/AS/Shared%20Documents/js/jquery-1.6.2.min.js"></script>
+
+<script src="/sites/AS/Shared%20Documents/js/jquery.SPServices-0.7.1a.min.js"></script>
+
+<script src="/sites/AS/Shared%20Documents/js/alphaSoup.js"></script>
+
+<link href="/sites/AS/Shared%20Documents/js/alphaSoup.css" rel="stylesheet" type="text/css"/>
+
+
+<script>
+
+
+var acros = [];
+
+function docReady() {
+	
+var myQueryOptions = "<QueryOptions><ViewAttributes Scope='RecursiveAll' IncludeRootFolder='True' /></QueryOptions>";
+
+
+$().SPServices({
+	operation: "GetListItems",
+	async: false,
+	listName: "Acronyms",
+	CAMLViewFields: "<ViewFields> <FieldRef Name='Title' /> <FieldRef Name='Column2' /> <FieldRef Name='Column3' /> <FieldRef Name='Column4' /> </ViewFields>",
+	CAMLRowLimit: 0,
+	CAMLQueryOptions: myQueryOptions,
+	completefunc: function (xData, Status) {
+$("#tasksUL").html("");		
+var ctr = 0;
+
+		$(xData.responseXML).find("[nodeName='z:row']").each(function () {
+			
+				var acro = {};
+				acro.acro = $(this).attr("ows_Title");
+				acro.meaning = $(this).attr("ows_Column2");
+				acro.expl = $(this).attr("ows_Column3");
+				acro.area = $(this).attr("ows_Column4");
+				
+				acros.push(acro);
+			ctr++;
+
+		});
+		var c = [];
+		
+		ba.alphaSoup.Init('mainDiv');
+		
+	}
+});
+
+
+}
+
+
+
+</script>
+
+<body>
+
+<div id="mainDiv"><input id="btnFind" type="button" value="FIND"/><input id="btnSoup" type="button" value="PLAY"/><input id="btnRandom" type="button" value="RANDOM"/><input id="btnList" type="button" value="LIST"/><br/><div id="Soup"><div id="areaDiv"><div id="areaCheckboxes"><input id="btnCheckSwitch" type="button" value="Uncheck All"/><br/><input class="areaCheck" id="AE" type="checkbox" checked="checked" value="AE"/>AE (23)<br/><input class="areaCheck" id="??" type="checkbox" checked="checked" value="??"/>?? (113)<br/><input class="areaCheck" id="IT_-_Pivotal" type="checkbox" checked="checked" value="IT - Pivotal"/>IT - Pivotal (22)<br/><input class="areaCheck" id="IT_-_ENGR" type="checkbox" checked="checked" value="IT - ENGR"/>IT - ENGR (44)<br/><input class="areaCheck" id="IT_-_General" type="checkbox" checked="checked" value="IT - General"/>IT - General (83)<br/><input class="areaCheck" id="IT_-_Aces" type="checkbox" checked="checked" value="IT - Aces"/>IT - Aces (47)<br/><input class="areaCheck" id="IT_-_CAS" type="checkbox" checked="checked" value="IT - CAS"/>IT - CAS (70)<br/><input class="areaCheck" id="Corporate" type="checkbox" checked="checked" value="Corporate"/>Corporate (68)<br/><input class="areaCheck" id="IT_-_HR" type="checkbox" checked="checked" value="IT - HR"/>IT - HR (12)<br/><input class="areaCheck" id="Computing" type="checkbox" checked="checked" value="Computing"/>Computing (29)<br/><input class="areaCheck" id="Aircraft_Services" type="checkbox" checked="checked" value="Aircraft Services"/>Aircraft Services (9)<br/><input class="areaCheck" id="BFTC" type="checkbox" checked="checked" value="BFTC"/>BFTC (1)<br/><input class="areaCheck" id="Locale" type="checkbox" checked="checked" value="Locale"/>Locale (2)<br/><input class="areaCheck" id="IT_-_Java" type="checkbox" checked="checked" value="IT - Java"/>IT - Java (7)<br/><input class="areaCheck" id="IT_-_INFOR10" type="checkbox" checked="checked" value="IT - INFOR10"/>IT - INFOR10 (1)<br/><input class="areaCheck" id="IT_-_CGI" type="checkbox" checked="checked" value="IT - CGI"/>IT - CGI (1)<br/><input class="areaCheck" id="IT_-_Engr" type="checkbox" checked="checked" value="IT - Engr"/>IT - Engr (2)<br/><input class="areaCheck" id="Aviation" type="checkbox" checked="checked" value="Aviation"/>Aviation (2)<br/><input class="areaCheck" id="???" type="checkbox" checked="checked" value="???"/>??? (2)<br/><input class="areaCheck" id="IT_-_ERP/WEB" type="checkbox" checked="checked" value="IT - ERP/WEB"/>IT - ERP/WEB (1)<br/><input class="areaCheck" id="General_Aviation" type="checkbox" checked="checked" value="General Aviation"/>General Aviation (3)<br/><input class="areaCheck" id="Engineering" type="checkbox" checked="checked" value="Engineering"/>Engineering (2)<br/>
+
+
+<input class="areaCheck" id="IT" type="checkbox" checked="checked" value="IT"/>IT (1)<br/></div></div>
+<div id="qBox"><div id="questionDiv"><select id="questionMode"><option value="R">Random Mix</option><option value="0">Easy (1 pt ea)</option><option value="1">Less Easy (2 pt ea)</option><option value="2">Medium (3 pt ea)</option><option value="3">Harder (4 pt ea)</option><option value="4">Pretty Hard (5 pt ea)</option></select><input id="btnNext" type="button" value="Next Question"/><input id="btnShow" type="button" value="Show Answer (-3 pts)"/></div>
+<div id="testDiv"><div><input class="iptShort" id="answer"/> is a basic unit with focus on a business feature<br/><input id="btnCheck" type="button" value="Check"/></div></div>
+<div id="answerDiv"></div>
+<div id="scoreDiv"></div></div></div>
+<div id="Find"><div id="searchDiv"><input id="searchPhrase"/><input id="btnSearch" type="button" value="Search"/><input id="btnClear" type="button" value="Clear"/>&#160;</div>
+<div id="displayDiv">&#160;</div>&#160;</div>
+<div id="Random">&#160;</div></div>
+
+
+</body>
+
+</html>
